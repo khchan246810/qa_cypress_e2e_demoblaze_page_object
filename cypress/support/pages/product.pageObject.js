@@ -1,4 +1,3 @@
-
 import PageObject from '../PageObject';
 
 class ProductPageObject extends PageObject {
@@ -6,7 +5,7 @@ class ProductPageObject extends PageObject {
     cy.contains('a', 'Add to cart').click();
   }
 
-  assertAllert(alertMessage) {
+  assertAlert(alertMessage) {
     cy.on('window:alert', (alert) => {
       expect(alert).to.eq(alertMessage);
     });

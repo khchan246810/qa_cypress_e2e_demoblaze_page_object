@@ -30,14 +30,16 @@ describe('Demoblaze checkout', () => {
     homePage.clickOnCategory('Laptops');
     homePage.clickOnProduct('Sony vaio i7');
 
-    // Add the laptop to the cart and verify the alert
-    productPage.assertAllert('Product added');
+    // Register the alert listener, then add the product to the cart
+    productPage.assertAlert('Product added');
     productPage.clickOnAddToCartBtn();
 
     // Open the cart and verify the product
     homePage.clickOnLink('Cart');
+
     cy.get('#tbodyid tr', { timeout: 10000 })
       .should('have.length.greaterThan', 0);
+
     cartPage.assertProductInCart('Sony vaio i7');
 
     // Open the order form and fill in all fields
@@ -52,7 +54,10 @@ describe('Demoblaze checkout', () => {
 
     // Purchase and verify the confirmation
     orderPage.clickOnPurchaseBtn();
-    orderPage.assertPurchaseDetails(testData.name, testData.card);
+    orderPage.assertPurchaseDetails(
+      testData.name,
+      testData.card
+    );
 
     orderPage.clickOnOkBtn();
   });
